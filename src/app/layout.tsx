@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Dosis, Inter } from "next/font/google";
-import { headers } from "next/headers";
 import { TRPCReactProvider } from "~/trpc/react";
-import Image from "next/image";
 import "./globals.css";
+import Header from "./_components/header";
 
 const dosis = Dosis({ subsets: ["latin"], variable: "--font-dosis" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -19,12 +18,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-br" className="">
+    <html lang="pt-br">
       <body
-        className={`${dosis.variable} ${inter.variable} flex min-h-screen flex-col items-center bg-neutral-900 pt-10`}
+        className={`${dosis.variable} ${inter.variable} min-h-screen bg-neutral-900`}
       >
         <TRPCReactProvider cookies="ggsgsg">
-          <Image src="/logo.svg" width={200} height={200} alt="logo projeto" />
+          <Header />
           {children}
         </TRPCReactProvider>
       </body>
