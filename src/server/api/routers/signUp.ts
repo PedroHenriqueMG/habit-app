@@ -1,14 +1,9 @@
-import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-
-const signUpSchema = z.object({
-  name: z.string(),
-  password: z.string(),
-});
+import { signUpschema } from "~/types/signUpSchema";
 
 export const signupRouter = createTRPCRouter({
   create: publicProcedure
-    .input(signUpSchema)
+    .input(signUpschema)
     .mutation(async ({ input, ctx }) => {
       const { name, password } = input;
 

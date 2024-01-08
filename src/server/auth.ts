@@ -43,15 +43,7 @@ export const authOptions: NextAuthOptions = {
           where: { name: creds.name },
         });
 
-        const pass = await db.user.findFirst({
-          where: { password: creds.password },
-        });
-
         if (!user) {
-          return null;
-        }
-
-        if (!pass) {
           return null;
         }
 
@@ -62,6 +54,9 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  pages: {
+    signIn: "/?login=true",
+  },
 };
 
 export const getServerAuthSession = () => getServerSession(authOptions);
