@@ -12,7 +12,7 @@ export default function NewHabit() {
 
   return (
     <main className="container relative flex flex-col gap-8 pt-16">
-      <h1 className="font-display text-center text-4xl text-white">
+      <h1 className="text-center font-display text-4xl text-white">
         novo hábito
       </h1>
 
