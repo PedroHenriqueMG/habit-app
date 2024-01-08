@@ -13,12 +13,12 @@ export default function SignUpForm() {
       <MyInput
         {...register("name")}
         color={`${errors.name ? "danger" : "default"}`}
-        errorMessage={errors.name && errors.name.message}
+        errorMessage={`${errors.name ? `${errors.name.message}` : ""}`}
       />
       <MyInput
         {...register("password")}
         color={`${errors.password ? "danger" : "default"}`}
-        errorMessage={errors.password && errors.password.message}
+        errorMessage={`${errors.password ? `${errors.password.message}` : ""}`}
       />
       <MyButton type="submit" color="green">
         Enviar

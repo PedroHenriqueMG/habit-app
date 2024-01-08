@@ -3,10 +3,10 @@ import { MyInput } from "../../ui/Input";
 
 export default function LoginForm() {
   return (
-    <form>
+    <form className="flex flex-col gap-4">
       <MyInput />
       <MyInput />
-      <MyButton>Enviar</MyButton>
+      <MyButton color="green">Enviar</MyButton>
     </form>
   );
 }
