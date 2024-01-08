@@ -4,6 +4,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import "./globals.css";
 import Header from "./_components/header";
 import SignUpModal from "./_components/modals/signUpModal";
+import LoginModal from "./_components/modals/loginModal";
 
 const dosis = Dosis({ subsets: ["latin"], variable: "--font-dosis" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -25,6 +26,7 @@ export default function RootLayout({
         <TRPCReactProvider cookies="ggsgsg">
           <Header />
           <SignUpModal />
+          <LoginModal />
           {children}
         </TRPCReactProvider>
       </body>

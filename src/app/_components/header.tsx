@@ -16,7 +16,11 @@ export default function Header() {
         <MyButton onClick={() => router.push("/?signup=true")} color="neutral">
           Cadastro
         </MyButton>
-        <MyButton color="green" radius="sm">
+        <MyButton
+          onClick={() => router.push("/?login=true")}
+          color="green"
+          radius="sm"
+        >
           Entrar
         </MyButton>
       </div>
