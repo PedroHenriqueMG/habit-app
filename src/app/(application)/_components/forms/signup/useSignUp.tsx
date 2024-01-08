@@ -1,11 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  type signUpSchemaProps,
-  signUpschema,
-} from "../../../../types/signUpSchema";
 import { api } from "~/trpc/react";
 import { useRouter } from "next/navigation";
+import { type signUpSchemaProps, signUpschema } from "~/types/signUpSchema";
 
 export const useSignUp = () => {
   const {

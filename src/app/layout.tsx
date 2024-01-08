@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import { Dosis, Inter } from "next/font/google";
 import { TRPCReactProvider } from "~/trpc/react";
 import "./globals.css";
-import Header from "./_components/header";
-import SignUpModal from "./_components/modals/signUpModal";
-import LoginModal from "./_components/modals/loginModal";
 
 const dosis = Dosis({ subsets: ["latin"], variable: "--font-dosis" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -23,12 +20,7 @@ export default function RootLayout({
       <body
         className={`${dosis.variable} ${inter.variable} min-h-screen bg-neutral-900`}
       >
-        <TRPCReactProvider cookies="ggsgsg">
-          <Header />
-          <SignUpModal />
-          <LoginModal />
-          {children}
-        </TRPCReactProvider>
+        <TRPCReactProvider cookies="ggsgsg">{children}</TRPCReactProvider>
       </body>
     </html>
   );

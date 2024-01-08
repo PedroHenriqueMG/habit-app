@@ -11,7 +11,7 @@ export default function NewHabit() {
   }
 
   return (
-    <main className="relative flex flex-col gap-8 pt-16">
+    <section className="relative flex flex-col gap-8 pt-16">
       <h1 className="text-center font-display text-4xl text-white">
         novo hábito
       </h1>
@@ -25,6 +25,6 @@ export default function NewHabit() {
 
         <MyButton className="text-lg">Cancelar</MyButton>
       </form>
-    </main>
+    </section>
   );
 }
