@@ -30,7 +30,7 @@ export default function Home() {
     .concat(weekDays.slice(0, todayWeekDay + 1));
 
   return (
-    <main className="container relative flex flex-col items-center gap-8 px-4 pt-16">
+    <main className="relative flex flex-col items-center gap-8 px-4 pt-16">
       {Object.keys(habits).length === 0 && (
         <h1 className=" mt-20 font-display text-2xl text-white">
           Voce não tem habitos cadastrados
