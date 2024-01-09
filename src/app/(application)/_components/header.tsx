@@ -3,8 +3,14 @@
 import Image from "next/image";
 import { MyButton } from "./ui/Button";
 import { useRouter } from "next/navigation";
+import { type Session } from "next-auth";
+import { signOut } from "next-auth/react";
 
-export default function Header() {
+type props = {
+  session: Session | null;
+};
+
+export default function Header({ session }: props) {
   const router = useRouter();
 
   return (
@@ -12,18 +18,30 @@ export default function Header() {
       <div>
         <Image src="/logo.svg" width={200} height={200} alt="logo projeto" />
       </div>
-      <div className="flex gap-2">
-        <MyButton onClick={() => router.push("/?signup=true")} color="neutral">
-          Cadastro
-        </MyButton>
-        <MyButton
-          onClick={() => router.push("/?login=true")}
-          color="green"
-          radius="sm"
-        >
-          Entrar
-        </MyButton>
-      </div>
+      {session ? (
+        <div className="flex gap-2">
+          <p>{session.user.name}</p>
+          <MyButton onClick={() => signOut()} color="green">
+            Sair
+          </MyButton>
+        </div>
+      ) : (
+        <div className="flex gap-2">
+          <MyButton
+            onClick={() => router.push("/?signup=true")}
+            color="neutral"
+          >
+            Cadastro
+          </MyButton>
+          <MyButton
+            onClick={() => router.push("/?login=true")}
+            color="green"
+            radius="sm"
+          >
+            Entrar
+          </MyButton>
+        </div>
+      )}
     </section>
   );
 }
