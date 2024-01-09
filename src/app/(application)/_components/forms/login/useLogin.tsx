@@ -15,13 +15,11 @@ export const useLogin = () => {
   });
 
   async function handleLogin(userdata: loginSchemaProps) {
-    const res = await signIn("credentials", {
+    await signIn("credentials", {
       name: userdata.name,
       password: userdata.password,
       callbackUrl: "/",
     });
-
-    console.log(res);
   }
 
   return {

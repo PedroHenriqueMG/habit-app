@@ -19,8 +19,8 @@ export default function Header({ session }: props) {
         <Image src="/logo.svg" width={200} height={200} alt="logo projeto" />
       </div>
       {session ? (
-        <div className="flex gap-2">
-          <p>{session.user.name}</p>
+        <div className="flex items-center gap-4">
+          <p className="text-white">{session.user.name}</p>
           <MyButton onClick={() => signOut()} color="green">
             Sair
           </MyButton>
