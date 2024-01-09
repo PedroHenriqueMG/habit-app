@@ -1,6 +1,5 @@
 import { Input } from "@nextui-org/react";
 import { MyButton } from "../../ui/Button";
-import { MyInput } from "../../ui/Input";
 import { useLogin } from "./useLogin";
 
 export default function LoginForm() {

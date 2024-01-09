@@ -1,5 +1,5 @@
+import { Input } from "@nextui-org/react";
 import { MyButton } from "../../ui/Button";
-import { MyInput } from "../../ui/Input";
 import { useSignUp } from "./useSignUp";
 
 export default function SignUpForm() {
@@ -10,12 +10,12 @@ export default function SignUpForm() {
       onSubmit={handleSubmit(handleCreation)}
       className="flex flex-col gap-4"
     >
-      <MyInput
+      <Input
         {...register("name")}
         color={`${errors.name ? "danger" : "default"}`}
         errorMessage={`${errors.name ? `${errors.name.message}` : ""}`}
       />
-      <MyInput
+      <Input
         {...register("password")}
         color={`${errors.password ? "danger" : "default"}`}
         errorMessage={`${errors.password ? `${errors.password.message}` : ""}`}
