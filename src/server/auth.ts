@@ -41,7 +41,11 @@ export const authOptions: NextAuthOptions = {
           where: { name: creds.name },
         });
 
-        if (!user) {
+        if (user?.name != creds.name) {
+          return null;
+        }
+
+        if (user.password != creds.password) {
           return null;
         }
 

@@ -11,7 +11,11 @@ export const MyInput = extendVariants(Input, {
           "data-[hover=true]:bg-neutral-800",
           "data-[focus=true]:border-neutral-800",
         ],
-        input: ["text-white", "focus:text-neutral-900", "font-sans"],
+        input: [
+          "text-white bg-neutral-800 data-[hover=true]:bg-neutral-800",
+          "focus:text-white data-[focus=true]:border-neutral-800",
+          "font-sans",
+        ],
       },
     },
   },

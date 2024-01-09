@@ -1,3 +1,4 @@
+import { Input } from "@nextui-org/react";
 import { MyButton } from "../../ui/Button";
 import { MyInput } from "../../ui/Input";
 import { useLogin } from "./useLogin";
@@ -7,12 +8,12 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col gap-4">
-      <MyInput
+      <Input
         {...register("name")}
         color={`${errors.name ? "danger" : "default"}`}
         errorMessage={`${errors.name ? `${errors.name.message}` : ""}`}
       />
-      <MyInput
+      <Input
         {...register("password")}
         color={`${errors.password ? "danger" : "default"}`}
         errorMessage={`${errors.password ? `${errors.password.message}` : ""}`}
