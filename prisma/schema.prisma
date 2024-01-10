@@ -8,10 +8,10 @@ datasource db {
 }
 
 model Habits {
-    id        Int @id @default(autoincrement())
+    id        Int     @id @default(autoincrement())
     habit     String
-    state     State @relation(fields: [state_id], references: [id])
-    state_id  Int @unique
+    state     State   @relation(fields: [state_id], references: [id])
+    state_id  Int     @unique
 }
 
 model State {
