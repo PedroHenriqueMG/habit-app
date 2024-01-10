@@ -1,7 +1,7 @@
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { habitsSchema, habitsSchemaUpdate } from "~/types/habitsSchema";
 
-export const productsRouter = createTRPCRouter({
+export const habitsRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.db.habits.findMany();
   }),
