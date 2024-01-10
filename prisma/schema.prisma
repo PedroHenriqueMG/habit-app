@@ -7,19 +7,10 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
+model Habits {
+    id        Int @id @default(autoincrement())
+    habit     String
 }
-
-// Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
     userId            String
@@ -48,11 +39,10 @@ model Session {
 
 model User {
     id            String    @id @default(cuid())
-    name          String?
+    name          String?   @unique
     password      String?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
 }
 
 model VerificationToken {
