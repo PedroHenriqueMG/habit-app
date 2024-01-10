@@ -10,7 +10,17 @@ datasource db {
 model Habits {
     id        Int @id @default(autoincrement())
     habit     String
+    state     State @relation(fields: [state_id], references: [id])
+    state_id  Int @unique
 }
+
+model State {
+    id        Int @id @default(autoincrement())
+    date      DateTime
+    status    Boolean
+    habits    Habits[]
+}
+
 model Account {
     id                String  @id @default(cuid())
     userId            String
