@@ -12,7 +12,6 @@ export const habitsRouter = createTRPCRouter({
     return ctx.db.habits.create({
       data: {
         habit: input.habit,
-        state_id: input.state_id,
       },
     });
   }),
@@ -23,7 +22,6 @@ export const habitsRouter = createTRPCRouter({
         where: { id: input.id },
         data: {
           habit: input.habit,
-          state_id: input.state_id,
         },
       });
     }),

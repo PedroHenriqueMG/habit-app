@@ -10,15 +10,15 @@ datasource db {
 model Habits {
     id        Int     @id @default(autoincrement())
     habit     String
-    state     State   @relation(fields: [state_id], references: [id])
-    state_id  Int     @unique
+    state     State[]
 }
 
 model State {
     id        Int @id @default(autoincrement())
     date      DateTime
     status    Boolean
-    habits    Habits[]
+    habits    Habits   @relation(fields: [habits_id], references: [id])
+    habits_id  Int     @unique
 }
 
 model Account {

@@ -13,6 +13,7 @@ export const stateRouter = createTRPCRouter({
       data: {
         date: input.date,
         status: input.status,
+        habits_id: input.habits_id,
       },
     });
   }),
