@@ -1,14 +1,13 @@
+"use client";
+
 import { Input } from "@nextui-org/react";
 import { MyButton } from "../_components/ui/Button";
+import { useHabits } from "../_components/forms/habits/useHabits";
+import { useRouter } from "next/navigation";
 
 export default function NewHabit() {
-  async function newHabit(formData: FormData) {
-    "use server";
-
-    const habit = formData.get("habit");
-
-    console.log(habit);
-  }
+  const router = useRouter();
+  const { register, handleSubmit, handleCriation, errors } = useHabits();
 
   return (
     <section className="relative flex flex-col items-center gap-8 pt-16">
@@ -16,14 +15,28 @@ export default function NewHabit() {
         novo hábito
       </h1>
 
-      <form action={newHabit} className="mt-4 flex flex-col gap-4">
-        <Input type="text" name="habit" radius="sm" size="sm" />
+      <form
+        onSubmit={handleSubmit(handleCriation)}
+        className="mt-4 flex flex-col gap-4"
+      >
+        <Input
+          type="text"
+          {...register("habit")}
+          color={`${errors.habit ? "danger" : "default"}`}
+          errorMessage={`${errors.habit ? `${errors.habit.message}` : ""}`}
+          radius="sm"
+          size="sm"
+        />
 
         <MyButton type="submit" color="green" className="text-lg">
           Cadastrar
         </MyButton>
 
-        <MyButton color="black" className="text-lg">
+        <MyButton
+          onClick={() => router.push("/")}
+          color="black"
+          className="text-lg"
+        >
           Cancelar
         </MyButton>
       </form>
