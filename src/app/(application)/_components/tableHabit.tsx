@@ -1,14 +1,19 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import DayState from "./dayState";
 import { MyButton } from "./ui/Button";
 import { type Habits } from "@prisma/client";
+import { api } from "~/trpc/react";
 
 type Props = {
   habits: Habits[];
 };
 
 export default function TableHabit({ habits }: Props) {
+  const habitDelete = api.habits.delete.useMutation();
+
   const today = new Date();
   const todayWeekDay = today.getDay();
   const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
@@ -16,6 +21,10 @@ export default function TableHabit({ habits }: Props) {
   const sortWeekDay = weekDays
     .slice(todayWeekDay + 1)
     .concat(weekDays.slice(0, todayWeekDay + 1));
+
+  function handleDelete(id: number) {
+    habitDelete.mutate({ id });
+  }
 
   return (
     <div className="flex flex-col items-center gap-8">
@@ -26,7 +35,7 @@ export default function TableHabit({ habits }: Props) {
               <span className="font-sans text-xl text-white">
                 {habitSteak.habit}
               </span>
-              <MyButton>
+              <MyButton onClick={() => handleDelete(habitSteak.id)}>
                 <Image src="/trash.svg" width={20} height={20} alt="lixeira" />
               </MyButton>
             </div>
