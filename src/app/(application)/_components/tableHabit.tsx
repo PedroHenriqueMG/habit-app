@@ -2,21 +2,13 @@ import Link from "next/link";
 import Image from "next/image";
 import DayState from "./dayState";
 import { MyButton } from "./ui/Button";
+import { type Habits } from "@prisma/client";
 
-export default function TableHabit() {
-  const habits = {
-    "beber agua": {
-      "2023-11-07": true,
-      "2023-11-08": false,
-      "2023-11-09": true,
-    },
-    estudar: {
-      "2023-11-07": false,
-      "2023-11-08": true,
-      "2023-11-09": true,
-    },
-  };
+type Props = {
+  habits: Habits[];
+};
 
+export default function TableHabit({ habits }: Props) {
   const today = new Date();
   const todayWeekDay = today.getDay();
   const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
@@ -27,16 +19,13 @@ export default function TableHabit() {
 
   return (
     <div className="flex flex-col items-center gap-8">
-      {Object.keys(habits).length === 0 && (
-        <h1 className=" mt-20 font-display text-2xl text-white">
-          Voce não tem habitos cadastrados
-        </h1>
-      )}
-      {habits != null &&
-        Object.entries(habits).map(([habits, habitSteak]) => (
-          <div key={habits}>
+      {habits.length > 0 ? (
+        habits.map((habitSteak) => (
+          <div key={habitSteak.id}>
             <div className="flex items-center justify-between">
-              <span className="font-sans text-xl text-white">{habits}</span>
+              <span className="font-sans text-xl text-white">
+                {habitSteak.habit}
+              </span>
               <MyButton>
                 <Image src="/trash.svg" width={20} height={20} alt="lixeira" />
               </MyButton>
@@ -52,7 +41,12 @@ export default function TableHabit() {
               ))}
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <h1 className="mt-20 font-display text-2xl text-white">
+          Voce não tem habitos cadastrados
+        </h1>
+      )}
       <Link
         href="/newhabit"
         className="rounded-md bg-[#45EDAD] px-4 py-2 font-display text-neutral-900"
