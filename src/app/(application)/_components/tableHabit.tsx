@@ -6,6 +6,7 @@ import DayState from "./dayState";
 import { MyButton } from "./ui/Button";
 import { type Habits } from "@prisma/client";
 import { api } from "~/trpc/react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   habits: Habits[];
@@ -13,6 +14,7 @@ type Props = {
 
 export default function TableHabit({ habits }: Props) {
   const habitDelete = api.habits.delete.useMutation();
+  const router = useRouter();
 
   const today = new Date();
   const todayWeekDay = today.getDay();
@@ -24,6 +26,10 @@ export default function TableHabit({ habits }: Props) {
 
   function handleDelete(id: number) {
     habitDelete.mutate({ id });
+    setTimeout(() => {
+      router.refresh();
+      clearTimeout(id);
+    }, 2);
   }
 
   return (

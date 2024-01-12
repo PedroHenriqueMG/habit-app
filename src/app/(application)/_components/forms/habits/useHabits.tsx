@@ -21,6 +21,10 @@ export const useHabits = () => {
   function handleCriation(data: habitsSchemaProps) {
     habit.mutate(data);
     router.push("/");
+    setTimeout(() => {
+      router.refresh();
+      clearTimeout(+data);
+    }, 2);
   }
 
   return {
