@@ -20,6 +20,13 @@ export default function TableHabit({ habits }: Props) {
   const todayWeekDay = today.getDay();
   const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
 
+  const last7days = weekDays.map((_, index) => {
+    const date = new Date();
+    date.setDate(date.getDate() - index);
+
+    return date.toISOString().slice(0, 10);
+  });
+
   const sortWeekDay = weekDays
     .slice(todayWeekDay + 1)
     .concat(weekDays.slice(0, todayWeekDay + 1));
