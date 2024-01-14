@@ -7,7 +7,7 @@ import {
 
 export const habitsRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.db.habits.findMany();
+    return ctx.db.habits.findMany({ include: { state: true } });
   }),
   getOne: publicProcedure.input(Number).query(({ ctx, input }) => {
     return ctx.db.habits.findUnique({ where: { id: input } });
@@ -16,7 +16,14 @@ export const habitsRouter = createTRPCRouter({
     return ctx.db.habits.create({
       data: {
         habit: input.habit,
+        state: {
+          create: input.state.map((state) => ({
+            date: state.date,
+            status: state.status,
+          })),
+        },
       },
+      include: { state: true },
     });
   }),
   update: publicProcedure

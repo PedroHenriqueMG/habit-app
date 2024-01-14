@@ -11,6 +11,7 @@ export const stateRouter = createTRPCRouter({
   create: publicProcedure.input(stateSchema).mutation(({ ctx, input }) => {
     return ctx.db.state.create({
       data: {
+        date: input.date,
         status: input.status,
         habits_id: input.habits_id,
       },

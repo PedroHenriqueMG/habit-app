@@ -15,7 +15,8 @@ model Habits {
 
 model State {
     id        Int      @id @default(autoincrement())
-    status    Boolean
+    date      DateTime
+    status    Boolean?
     habits    Habits   @relation(fields: [habits_id], references: [id])
     habits_id  Int     @unique
 }
