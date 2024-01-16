@@ -3,17 +3,18 @@
 import Image from "next/image";
 import DayState from "./dayState";
 import { MyButton } from "./ui/Button";
-import { type State, type Habits } from "@prisma/client";
+import { type State } from "@prisma/client";
 import { api } from "~/trpc/react";
 import { useRouter } from "next/navigation";
 
 type Props = {
   habits: {
+    id: number;
+    habit: string;
     state: State[];
-  } & Habits[];
+  }[];
 };
-
-export default function TableHabit(habits: Props) {
+export default function TableHabit({ habits }: Props) {
   const habitDelete = api.habits.delete.useMutation();
   const router = useRouter();
 
@@ -42,8 +43,8 @@ export default function TableHabit(habits: Props) {
 
   return (
     <div className="flex flex-col items-center gap-8">
-      {habits.habits.length > 0 ? (
-        habits.habits.map((habitSteak) => (
+      {habits.length > 0 ? (
+        habits.map((habitSteak) => (
           <div key={habitSteak.id}>
             <div className="flex items-center justify-between">
               <span className="font-sans text-xl text-white">
@@ -54,12 +55,12 @@ export default function TableHabit(habits: Props) {
               </MyButton>
             </div>
             <div className="grid grid-cols-7 rounded-md bg-neutral-800 p-2">
-              {sortWeekDay.map((day) => (
+              {sortWeekDay.map((day, index) => (
                 <div key={day} className="flex flex-col last:font-bold">
                   <span className="text-center font-display text-white">
                     {day}
                   </span>
-                  <DayState day={habitSteak.state[0].status} />
+                  <DayState day={habitSteak.state[index]?.status} />
                 </div>
               ))}
             </div>

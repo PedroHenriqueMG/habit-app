@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function DayState({ day }: { day: boolean | null }) {
+export default function DayState({ day }: { day: boolean | null | undefined }) {
   if (day == true) {
     return (
       <div className="flex h-9 w-9 items-center justify-center">
