@@ -41,6 +41,16 @@ export default function TableHabit({ habits }: Props) {
     }, 2);
   }
 
+  const formatter = Intl.DateTimeFormat("pt-br", {
+    weekday: "short",
+  });
+
+  function weekday(date: Date) {
+    const week = formatter.format(new Date(date));
+
+    return week;
+  }
+
   return (
     <div className="flex flex-col items-center gap-8">
       {habits.length > 0 ? (
@@ -55,12 +65,12 @@ export default function TableHabit({ habits }: Props) {
               </MyButton>
             </div>
             <div className="grid grid-cols-7 rounded-md bg-neutral-800 p-2">
-              {sortWeekDay.map((day, index) => (
-                <div key={day} className="flex flex-col last:font-bold">
+              {habitSteak.state.map((state) => (
+                <div key={state.id} className="flex flex-col last:font-bold">
                   <span className="text-center font-display text-white">
-                    {day}
+                    {weekday(state.date)}
                   </span>
-                  <DayState day={habitSteak.state[index]?.status} />
+                  <DayState day={state.status} />
                 </div>
               ))}
             </div>
