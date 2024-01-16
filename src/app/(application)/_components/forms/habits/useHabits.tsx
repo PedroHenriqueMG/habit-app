@@ -30,10 +30,7 @@ export const useHabits = () => {
   });
 
   function handleCriation(data: habitsSchemaProps) {
-    habit.mutate({
-      habit: data,
-      state: [last7days],
-    });
+    habit.mutate(data);
     router.push("/");
     setTimeout(() => {
       router.refresh();

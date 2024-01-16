@@ -24,10 +24,7 @@ export default function NewHabit() {
   });
 
   function handleClick() {
-    create.mutate({
-      habit: "teste2",
-      state: last7days,
-    });
+    create.mutate({ habit: "teste2" });
   }
 
   return (
