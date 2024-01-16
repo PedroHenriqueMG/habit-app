@@ -27,6 +27,9 @@ export const habitsRouter = createTRPCRouter({
   delete: publicProcedure
     .input(habitsSchemaDelete)
     .mutation(({ ctx, input }) =>
-      ctx.db.habits.delete({ where: { id: input.id } }),
+      ctx.db.habits.delete({
+        where: { id: input.id },
+        include: { state: true },
+      }),
     ),
 });

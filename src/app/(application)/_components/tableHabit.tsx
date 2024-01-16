@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import DayState from "./dayState";
 import { MyButton } from "./ui/Button";
@@ -28,8 +27,6 @@ export default function TableHabit(habits: Props) {
 
     return date.toISOString().slice(0, 10);
   });
-
-  console.log(last7days);
 
   const sortWeekDay = weekDays
     .slice(todayWeekDay + 1)
@@ -73,12 +70,9 @@ export default function TableHabit(habits: Props) {
           Voce não tem habitos cadastrados
         </h1>
       )}
-      <Link
-        href="/newhabit"
-        className="rounded-md bg-[#45EDAD] px-4 py-2 font-display text-neutral-900"
-      >
+      <MyButton color="green" onClick={() => router.push("/newhabit")}>
         novo hábito
-      </Link>
+      </MyButton>
     </div>
   );
 }
