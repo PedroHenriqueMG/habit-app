@@ -65,12 +65,12 @@ export default function TableHabit({ habits }: Props) {
               </MyButton>
             </div>
             <div className="grid grid-cols-7 rounded-md bg-neutral-800 p-2">
-              {habitSteak.state.map((state) => (
-                <div key={state.id} className="flex flex-col last:font-bold">
+              {sortWeekDay.map((day) => (
+                <div key={day} className="flex flex-col last:font-bold">
                   <span className="text-center font-display text-white">
-                    {weekday(state.date)}
+                    {day}
                   </span>
-                  <DayState day={state.status} />
+                  <DayState day={habitSteak.state[0]?.status} />
                 </div>
               ))}
             </div>
