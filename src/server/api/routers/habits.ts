@@ -6,7 +6,10 @@ export const habitsRouter = createTRPCRouter({
     return ctx.db.habits.findMany({ include: { state: true } });
   }),
   getOne: publicProcedure.input(Number).query(({ ctx, input }) => {
-    return ctx.db.habits.findUnique({ where: { id: input } });
+    return ctx.db.habits.findUnique({
+      where: { id: input },
+      include: { state: true },
+    });
   }),
   create: publicProcedure.input(habitsSchema).mutation(({ ctx, input }) => {
     return ctx.db.habits.create({
@@ -24,12 +27,10 @@ export const habitsRouter = createTRPCRouter({
       },
     });
   }),
-  delete: publicProcedure
-    .input(habitsSchemaDelete)
-    .mutation(({ ctx, input }) =>
-      ctx.db.habits.delete({
-        where: { id: input.id },
-        include: { state: true },
-      }),
-    ),
+  delete: publicProcedure.input(habitsSchemaDelete).mutation(({ ctx, input }) =>
+    ctx.db.habits.delete({
+      where: { id: input.id },
+      include: { state: true },
+    }),
+  ),
 });

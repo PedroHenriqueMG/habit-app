@@ -7,6 +7,8 @@ export default async function Home() {
 
   const habits = await api.habits.getAll.query();
 
+  console.log(habits);
+
   return (
     <section className="flex flex-col items-center gap-8 px-4 pt-16">
       {session ? (

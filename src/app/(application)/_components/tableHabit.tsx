@@ -6,6 +6,7 @@ import { MyButton } from "./ui/Button";
 import { type State } from "@prisma/client";
 import { api } from "~/trpc/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type Props = {
   habits: {
@@ -64,16 +65,18 @@ export default function TableHabit({ habits }: Props) {
                 <Image src="/trash.svg" width={20} height={20} alt="lixeira" />
               </MyButton>
             </div>
-            <div className="grid grid-cols-7 rounded-md bg-neutral-800 p-2">
-              {sortWeekDay.map((day) => (
-                <div key={day} className="flex flex-col last:font-bold">
-                  <span className="text-center font-display text-white">
-                    {day}
-                  </span>
-                  <DayState day={habitSteak.state[0]?.status} />
-                </div>
-              ))}
-            </div>
+            <Link href={`/habit/${habitSteak.id}`}>
+              <div className="grid grid-cols-7 rounded-md bg-neutral-800 p-2">
+                {sortWeekDay.map((day) => (
+                  <div key={day} className="flex flex-col last:font-bold">
+                    <span className="text-center font-display text-white">
+                      {day}
+                    </span>
+                    <DayState day={habitSteak.state[0]?.status} />
+                  </div>
+                ))}
+              </div>
+            </Link>
           </div>
         ))
       ) : (
