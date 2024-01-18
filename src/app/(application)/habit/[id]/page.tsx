@@ -1,4 +1,5 @@
 import { api } from "~/trpc/server";
+import Calendar from "../../_components/calendar";
 
 export default async function Habit({
   params: { id },
@@ -8,8 +9,11 @@ export default async function Habit({
   const habit = await api.habits.getOne.query(id);
 
   return (
-    <section>
-      <h1 className="text-xl text-white">{habit?.habit}</h1>
+    <section className="container relative flex flex-col gap-8 px-12 pt-16">
+      <h1 className="text-center font-display text-2xl font-light text-white">
+        {habit?.habit}
+      </h1>
+      <Calendar habit={habit} />
     </section>
   );
 }
