@@ -15,15 +15,6 @@ export const habitsRouter = createTRPCRouter({
     return ctx.db.habits.create({
       data: {
         habit: input.habit,
-        state: {
-          create: Array.from({ length: 7 }).map((_, index) => ({
-            date: new Date(new Date().setDate(new Date().getDate() - index)),
-            status: null,
-          })),
-        },
-      },
-      include: {
-        state: true,
       },
     });
   }),

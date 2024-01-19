@@ -23,12 +23,14 @@ export default function TableHabit({ habits }: Props) {
   const todayWeekDay = today.getDay();
   const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
 
-  const last7days = weekDays.map((_, index) => {
-    const date = new Date();
-    date.setDate(date.getDate() - index);
+  const last7days = weekDays
+    .map((_, index) => {
+      const date = new Date();
+      date.setDate(date.getDate() - index);
 
-    return date.toISOString().slice(0, 10);
-  });
+      return date.toISOString().slice(0, 10);
+    })
+    .reverse();
 
   const sortWeekDay = weekDays
     .slice(todayWeekDay + 1)
@@ -67,12 +69,12 @@ export default function TableHabit({ habits }: Props) {
             </div>
             <Link href={`/habit/${habitSteak.id}`}>
               <div className="grid grid-cols-7 rounded-md bg-neutral-800 p-2">
-                {sortWeekDay.map((day) => (
+                {sortWeekDay.map((day, index) => (
                   <div key={day} className="flex flex-col last:font-bold">
                     <span className="text-center font-display text-white">
                       {day}
                     </span>
-                    <DayState day={habitSteak.state[0]?.status} />
+                    <DayState day={habitSteak.state[last7days[index]]} />
                   </div>
                 ))}
               </div>
