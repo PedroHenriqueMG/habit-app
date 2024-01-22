@@ -43,15 +43,14 @@ export default function TableHabit({ habits }: Props) {
       clearTimeout(id);
     }, 2);
   }
+  console.log(last7days);
 
-  const formatter = Intl.DateTimeFormat("pt-br", {
-    weekday: "short",
-  });
-
-  function weekday(date: Date) {
-    const week = formatter.format(new Date(date));
-
-    return week;
+  function getStatusDay(state: State[], date: string | undefined) {
+    const matchinStatus = state.find((state) => state.date === date);
+    if (matchinStatus) {
+      return matchinStatus.status;
+    }
+    return undefined;
   }
 
   return (
@@ -74,7 +73,9 @@ export default function TableHabit({ habits }: Props) {
                     <span className="text-center font-display text-white">
                       {day}
                     </span>
-                    <DayState day={habitSteak.state[last7days[index]]} />
+                    <DayState
+                      day={getStatusDay(habitSteak.state, last7days[index])}
+                    />
                   </div>
                 ))}
               </div>
