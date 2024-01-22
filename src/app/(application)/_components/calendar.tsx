@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
 import { type State } from "@prisma/client";
@@ -8,14 +9,15 @@ import { useEffect, useState } from "react";
 import DayState from "./dayState";
 
 type Props = {
-  id: number;
-  habit: string;
-  state: State[];
+  habits: {
+    id: number;
+    habit: string;
+    state: State[];
+  };
 };
 
-export default function Calendar({ habit }: Props) {
+export default function Calendar({ habits }: Props) {
   const currentDate = new Date();
-  const currentDay = currentDate.getDate();
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
   const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
@@ -25,13 +27,13 @@ export default function Calendar({ habit }: Props) {
   const [selectDate, setSelectDate] = useState(new Date());
   const router = useRouter();
 
-  function getDaysInMonth(month: number, year: number) {
+  function getDaysInMonth(month: number, year: number): Date[] {
     const date = new Date(year, month, 1);
     const firstDayWeek = date.getDay();
     const numberOfEmptyDays = Array(firstDayWeek == 0 ? 6 : firstDayWeek).fill(
       null,
     );
-    const days = [...numberOfEmptyDays];
+    const days: Date[] = [...numberOfEmptyDays];
     while (date.getMonth() == month) {
       days.push(new Date(date));
       date.setDate(date.getDate() + 1);
@@ -71,6 +73,14 @@ export default function Calendar({ habit }: Props) {
     })} de ${selectDate.getFullYear()}`;
   }
 
+  function getStatusDay(date: string | undefined) {
+    const matchinStatus = habits?.state?.find((state) => state.date === date);
+    if (matchinStatus) {
+      return matchinStatus.status;
+    }
+    return undefined;
+  }
+
   return (
     <section>
       <MyButton onClick={() => router.push("/")} color="link">
@@ -104,7 +114,9 @@ export default function Calendar({ habit }: Props) {
               <span className="font-sans text-xs font-light text-neutral-400">
                 {day?.getDate()}
               </span>
-              <DayState day={undefined} />
+              {day?.getDate() && (
+                <DayState day={getStatusDay(day.toISOString().slice(0, 10))} />
+              )}
             </div>
           ))}
         </div>

@@ -13,7 +13,7 @@ export default async function Habit({
       <h1 className="text-center font-display text-2xl font-light text-white">
         {habit?.habit}
       </h1>
-      <Calendar habit={habit} />
+      <Calendar habits={habit} />
     </section>
   );
 }
