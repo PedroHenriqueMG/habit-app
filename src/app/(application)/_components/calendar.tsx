@@ -4,6 +4,8 @@ import { type State } from "@prisma/client";
 import { MyButton } from "./ui/Button";
 import { useRouter } from "next/navigation";
 import ArrowIcon from "./arrowIcon";
+import { useEffect, useState } from "react";
+import DayState from "./dayState";
 
 type Props = {
   id: number;
@@ -12,9 +14,16 @@ type Props = {
 };
 
 export default function Calendar({ habit }: Props) {
-  const router = useRouter();
-
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const currentMonth = currentDate.getMonth();
+  const currentYear = currentDate.getFullYear();
   const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
+
+  const [month, setMonth] = useState(currentMonth);
+  const [year, setYear] = useState(currentYear);
+  const [selectDate, setSelectDate] = useState(new Date());
+  const router = useRouter();
 
   function getDaysInMonth(month: number, year: number) {
     const date = new Date(year, month, 1);
@@ -30,29 +39,54 @@ export default function Calendar({ habit }: Props) {
     return days;
   }
 
-  const currentDate = new Date();
-  const currentDay = currentDate.getDate();
-  const currentMonth = currentDate.getMonth();
-  const currentYear = currentDate.getFullYear();
+  const daysInMonth = getDaysInMonth(month, year);
 
-  const daysInMonth = getDaysInMonth(currentMonth, currentYear);
+  useEffect(() => {
+    setSelectDate(new Date(year, month, 1));
+  }, [year, month]);
+
+  // change to previus mouth
+  function onNextMonth() {
+    if (month == 11) {
+      setYear(year + 1);
+      setMonth(0);
+    } else {
+      setMonth(month + 1);
+    }
+  }
+
+  // change to next mouth
+  function onPrevMonth() {
+    if (month == 0) {
+      setYear(year - 1);
+      setMonth(11);
+    } else {
+      setMonth(month - 1);
+    }
+  }
+
+  function getTitleMouth() {
+    return `${selectDate.toLocaleString("pt-BR", {
+      month: "long",
+    })} de ${selectDate.getFullYear()}`;
+  }
 
   return (
     <section>
       <MyButton onClick={() => router.push("/")} color="link">
-        <ArrowIcon width={12} height={12} />
+        <ArrowIcon width={20} height={20} />
         Voltar
       </MyButton>
       <div className="my-2 w-full rounded-md bg-neutral-800">
-        <div className="mx-2 my-4 flex justify-between font-sans text-neutral-400">
-          <MyButton>
-            <ArrowIcon width={12} height={12} className="stroke-neutral-400" />
+        <div className="mx-2 my-4 flex items-center justify-between font-sans text-neutral-400">
+          <MyButton onClick={onPrevMonth}>
+            <ArrowIcon width={20} height={20} className="stroke-neutral-400" />
           </MyButton>
-          <span>Janeiro de 2024</span>
-          <MyButton>
+          <span>{getTitleMouth()}</span>
+          <MyButton onClick={onNextMonth}>
             <ArrowIcon
-              width={12}
-              height={12}
+              width={20}
+              height={20}
               className="rotate-180 stroke-neutral-400"
             />
           </MyButton>
@@ -70,6 +104,7 @@ export default function Calendar({ habit }: Props) {
               <span className="font-sans text-xs font-light text-neutral-400">
                 {day?.getDate()}
               </span>
+              <DayState day={undefined} />
             </div>
           ))}
         </div>

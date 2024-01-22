@@ -15,14 +15,20 @@ type Props = {
     state: State[];
   }[];
 };
+
 export default function TableHabit({ habits }: Props) {
   const habitDelete = api.habits.delete.useMutation();
   const router = useRouter();
 
+  //get today week day
   const today = new Date();
   const todayWeekDay = today.getDay();
   const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
+  const sortWeekDay = weekDays
+    .slice(todayWeekDay + 1)
+    .concat(weekDays.slice(0, todayWeekDay + 1));
 
+  //get last seven days
   const last7days = weekDays
     .map((_, index) => {
       const date = new Date();
@@ -32,10 +38,7 @@ export default function TableHabit({ habits }: Props) {
     })
     .reverse();
 
-  const sortWeekDay = weekDays
-    .slice(todayWeekDay + 1)
-    .concat(weekDays.slice(0, todayWeekDay + 1));
-
+  //delete habit
   function handleDelete(id: number) {
     habitDelete.mutate({ id });
     setTimeout(() => {
@@ -45,6 +48,7 @@ export default function TableHabit({ habits }: Props) {
   }
   console.log(last7days);
 
+  //get status of last seven days
   function getStatusDay(state: State[], date: string | undefined) {
     const matchinStatus = state.find((state) => state.date === date);
     if (matchinStatus) {
