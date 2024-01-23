@@ -46,7 +46,6 @@ export default function TableHabit({ habits }: Props) {
       clearTimeout(id);
     }, 2);
   }
-  console.log(last7days);
 
   //get status of last seven days
   function getStatusDay(state: State[], date: string | undefined) {

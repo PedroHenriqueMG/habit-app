@@ -13,7 +13,7 @@ type Props = {
     id: number;
     habit: string;
     state: State[];
-  };
+  } | null;
 };
 
 export default function Calendar({ habits }: Props) {
@@ -121,6 +121,12 @@ export default function Calendar({ habits }: Props) {
           ))}
         </div>
       </div>
+      <MyButton
+        color="green"
+        onClick={() => router.push(`/habit/${habits?.id}?state=true`)}
+      >
+        Atualizar
+      </MyButton>
     </section>
   );
 }
