@@ -5,10 +5,10 @@ export const signupRouter = createTRPCRouter({
   create: publicProcedure
     .input(signUpschema)
     .mutation(async ({ input, ctx }) => {
-      const { name, password } = input;
+      const { email, name, password } = input;
 
       const exists = await ctx.db.user.findFirst({
-        where: { name },
+        where: { email },
       });
 
       if (exists) {
@@ -19,7 +19,7 @@ export const signupRouter = createTRPCRouter({
       }
 
       const result = await ctx.db.user.create({
-        data: { name: name, password: password },
+        data: { email: email, name: name, password: password },
       });
 
       return {

@@ -16,6 +16,11 @@ export default function SignUpForm() {
         errorMessage={`${errors.name ? `${errors.name.message}` : ""}`}
       />
       <Input
+        {...register("email")}
+        color={`${errors.email ? "danger" : "default"}`}
+        errorMessage={`${errors.email ? `${errors.email.message}` : ""}`}
+      />
+      <Input
         {...register("password")}
         color={`${errors.password ? "danger" : "default"}`}
         errorMessage={`${errors.password ? `${errors.password.message}` : ""}`}

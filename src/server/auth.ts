@@ -10,6 +10,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id;
         token.name = user.name;
+        token.email = user.email;
       }
       return token;
     },
@@ -31,27 +32,28 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        name: { label: "name", type: "text" },
+        email: { label: "email", type: "email" },
         password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
         const creds = await loginSchema.parseAsync(credentials);
 
         const user = await db.user.findFirst({
-          where: { name: creds.name },
+          where: { email: creds.email },
         });
 
-        if (user?.name != creds.name) {
+        if (user?.email != creds.email) {
           return null;
         }
 
-        if (user.password != creds.password) {
+        if (user?.password != creds.password) {
           return null;
         }
 
         return {
           id: user.id,
           name: user.name,
+          email: user.email,
         };
       },
     }),

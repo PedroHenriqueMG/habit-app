@@ -8,9 +8,9 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col gap-4">
       <Input
-        {...register("name")}
-        color={`${errors.name ? "danger" : "default"}`}
-        errorMessage={`${errors.name ? `${errors.name.message}` : ""}`}
+        {...register("email")}
+        color={`${errors.email ? "danger" : "default"}`}
+        errorMessage={`${errors.email ? `${errors.email.message}` : ""}`}
       />
       <Input
         {...register("password")}

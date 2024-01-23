@@ -16,7 +16,7 @@ export const useLogin = () => {
 
   async function handleLogin(userdata: loginSchemaProps) {
     await signIn("credentials", {
-      name: userdata.name,
+      email: userdata.email,
       password: userdata.password,
       callbackUrl: "/",
     });
