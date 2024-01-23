@@ -10,6 +10,12 @@ export const habitsSchema = z.object({
   habit: z.string().min(1, "Hábito inválido"),
 });
 
+export const habitSchemaUpdate = z.object({
+  id: z.number(),
+  date: z.string(),
+  status: z.boolean(),
+});
+
 export const habitsSchemaDelete = z.object({
   id: z.number(),
 });

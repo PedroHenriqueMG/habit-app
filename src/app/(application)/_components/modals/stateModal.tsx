@@ -20,7 +20,9 @@ export default function StateModal({ path }: { path: number }) {
       <ModalContent>
         <ModalHeader></ModalHeader>
         <ModalBody className="flex flex-col items-center justify-center">
-          <p className="text-white">Entrar</p>
+          <p className="font-display text-2xl text-white">
+            Atualize seu Hábito:
+          </p>
         </ModalBody>
         <ModalFooter></ModalFooter>
       </ModalContent>

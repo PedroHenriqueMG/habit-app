@@ -1,5 +1,9 @@
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import { habitsSchema, habitsSchemaDelete } from "~/types/habitsSchema";
+import {
+  habitSchemaUpdate,
+  habitsSchema,
+  habitsSchemaDelete,
+} from "~/types/habitsSchema";
 
 export const habitsRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
@@ -18,6 +22,17 @@ export const habitsRouter = createTRPCRouter({
       },
     });
   }),
+  update: publicProcedure
+    .input(habitSchemaUpdate)
+    .mutation(({ ctx, input }) => {
+      return ctx.db.state.update({
+        where: { id: input.id },
+        data: {
+          date: input.date,
+          status: input.status,
+        },
+      });
+    }),
   delete: publicProcedure.input(habitsSchemaDelete).mutation(({ ctx, input }) =>
     ctx.db.habits.delete({
       where: { id: input.id },
