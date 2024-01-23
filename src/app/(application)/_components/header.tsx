@@ -20,7 +20,7 @@ export default function Header({ session }: props) {
       </div>
       {session ? (
         <div className="flex items-center gap-4">
-          <p className="text-white">{session.user.name}</p>
+          <p className="font-sans text-white">{session.user.name}</p>
           <MyButton onClick={() => signOut()} color="green">
             Sair
           </MyButton>
