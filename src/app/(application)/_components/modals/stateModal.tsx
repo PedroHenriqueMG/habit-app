@@ -8,6 +8,7 @@ import {
   ModalFooter,
 } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import StateForm from "../forms/state/stateForm";
 
 export default function StateModal({ path }: { path: number }) {
   const searchParams = useSearchParams();
@@ -23,6 +24,7 @@ export default function StateModal({ path }: { path: number }) {
           <p className="font-display text-2xl text-white">
             Atualize seu Hábito:
           </p>
+          <StateForm id={path} />
         </ModalBody>
         <ModalFooter></ModalFooter>
       </ModalContent>

@@ -1,19 +1,18 @@
 import { z } from "zod";
 
-export const stateSchema = z.object({
-  date: z.coerce.date(),
-  status: z.boolean().nullable(),
-  habits_id: z.number(),
-});
-
 export const habitsSchema = z.object({
   habit: z.string().min(1, "Hábito inválido"),
 });
 
 export const habitSchemaUpdate = z.object({
-  id: z.number(),
   date: z.string(),
   status: z.boolean(),
+  habits_id: z.number(),
+});
+
+export const stateFormSchema = z.object({
+  date: z.string(),
+  status: z.enum(["true", "false"]),
 });
 
 export const habitsSchemaDelete = z.object({
@@ -21,3 +20,4 @@ export const habitsSchemaDelete = z.object({
 });
 
 export type habitsSchemaProps = z.infer<typeof habitsSchema>;
+export type stateFormSchemaProps = z.infer<typeof stateFormSchema>;

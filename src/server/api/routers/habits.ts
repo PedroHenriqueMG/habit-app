@@ -25,11 +25,11 @@ export const habitsRouter = createTRPCRouter({
   update: publicProcedure
     .input(habitSchemaUpdate)
     .mutation(({ ctx, input }) => {
-      return ctx.db.state.update({
-        where: { id: input.id },
+      return ctx.db.state.create({
         data: {
           date: input.date,
           status: input.status,
+          habits_id: input.habits_id,
         },
       });
     }),
