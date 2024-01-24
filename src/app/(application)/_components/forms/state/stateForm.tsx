@@ -47,8 +47,12 @@ export default function StateForm({ id }: { id: number }) {
         errorMessage={`${errors.status ? `${errors.status.message}` : ""}`}
         label="Status do Hábito"
       >
-        <SelectItem key="true">Feito</SelectItem>
-        <SelectItem key="false">Não feito</SelectItem>
+        <SelectItem className="font-sans" key="true">
+          Feito
+        </SelectItem>
+        <SelectItem className="font-sans" key="false">
+          Não feito
+        </SelectItem>
       </Select>
       <MyButton type="submit" color="green">
         Enviar

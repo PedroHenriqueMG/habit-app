@@ -17,9 +17,10 @@ export default function NewHabit() {
 
       <form
         onSubmit={handleSubmit(handleCriation)}
-        className="mt-4 flex flex-col gap-4"
+        className="mt-4 flex flex-col gap-4 font-sans"
       >
         <Input
+          label="Hábito"
           type="text"
           {...register("habit")}
           color={`${errors.habit ? "danger" : "default"}`}

@@ -68,9 +68,12 @@ export default function Calendar({ habits }: Props) {
   }
 
   function getTitleMouth() {
-    return `${selectDate.toLocaleString("pt-BR", {
+    const mouthName = `${selectDate.toLocaleString("pt-BR", {
       month: "long",
-    })} de ${selectDate.getFullYear()}`;
+    })}`;
+
+    const upperCaseMouthName = mouthName[0]?.toUpperCase() + mouthName.slice(1);
+    return `${upperCaseMouthName} de ${selectDate.getFullYear()}`;
   }
 
   function getStatusDay(date: string | undefined) {

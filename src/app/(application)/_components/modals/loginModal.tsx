@@ -22,7 +22,7 @@ export default function LoginModal() {
         <ModalHeader></ModalHeader>
         <ModalBody>
           <div className="flex w-full flex-col items-center justify-center gap-6">
-            <p className="text-white">Entrar</p>
+            <p className="font-display text-2xl text-white">Entrar</p>
             <LoginForm />
           </div>
         </ModalBody>

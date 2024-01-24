@@ -22,7 +22,7 @@ export default function SignUpModal() {
         <ModalHeader></ModalHeader>
         <ModalBody>
           <div className="flex w-full flex-col items-center justify-center gap-6">
-            <p className="text-white">Cadastro</p>
+            <p className="font-display text-2xl text-white">Cadastro</p>
             <SignUpForm />
           </div>
         </ModalBody>
