@@ -27,14 +27,31 @@ export const habitsRouter = createTRPCRouter({
     }),
   update: publicProcedure
     .input(habitSchemaUpdate)
-    .mutation(({ ctx, input }) => {
-      return ctx.db.state.create({
+    .mutation(async ({ ctx, input }) => {
+      const { date, status, habits_id } = input;
+
+      const exists = await ctx.db.state.findFirst({
+        where: { date },
+      });
+
+      if (exists) {
+        return {
+          status: 401,
+          message: "Email already exists",
+        };
+      }
+      const result = await ctx.db.state.create({
         data: {
-          date: input.date,
-          status: input.status,
-          habits_id: input.habits_id,
+          date: date,
+          status: status,
+          habits_id: habits_id,
         },
       });
+      return {
+        status: 201,
+        message: "Account created successfully",
+        result: result.date,
+      };
     }),
   delete: publicProcedure.input(habitsSchemaDelete).mutation(({ ctx, input }) =>
     ctx.db.habits.delete({

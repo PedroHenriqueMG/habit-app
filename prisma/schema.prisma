@@ -17,7 +17,7 @@ model Habits {
 
 model State {
     id         Int      @id @default(autoincrement())
-    date       String
+    date       String   @unique
     status     Boolean
     habits     Habits   @relation(fields: [habits_id], references: [id], onDelete: Cascade)
     habits_id  Int
