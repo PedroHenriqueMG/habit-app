@@ -27,6 +27,7 @@ export default function Calendar({ habits }: Props) {
   const [selectDate, setSelectDate] = useState(new Date());
   const router = useRouter();
 
+  // get all days in month and year
   function getDaysInMonth(month: number, year: number): Date[] {
     const date = new Date(year, month, 1);
     const firstDayWeek = date.getDay();
@@ -67,6 +68,7 @@ export default function Calendar({ habits }: Props) {
     }
   }
 
+  // calendar mouth title
   function getTitleMouth() {
     const mouthName = `${selectDate.toLocaleString("pt-BR", {
       month: "long",
@@ -76,12 +78,24 @@ export default function Calendar({ habits }: Props) {
     return `${upperCaseMouthName} de ${selectDate.getFullYear()}`;
   }
 
+  // get habit status
   function getStatusDay(date: string | undefined) {
     const matchinStatus = habits?.state?.find((state) => state.date === date);
     if (matchinStatus) {
       return matchinStatus.status;
     }
     return undefined;
+  }
+
+  //destac today date
+  function today(day: Date): boolean {
+    const today = new Date();
+
+    return (
+      day?.getDate() === today.getDate() &&
+      day?.getMonth() === today.getMonth() &&
+      day?.getFullYear() === today.getFullYear()
+    );
   }
 
   return (
@@ -113,12 +127,27 @@ export default function Calendar({ habits }: Props) {
             </div>
           ))}
           {daysInMonth.map((day, index) => (
-            <div key={index} className="flex flex-col items-center p-2">
-              <span className="font-sans text-xs font-light text-neutral-400">
+            <div
+              key={index}
+              className={`flex flex-col items-center ${
+                today(day) ? "rounded-md bg-neutral-700" : ""
+              } p-2`}
+            >
+              <span
+                className={`font-sans text-xs ${
+                  today(day)
+                    ? "font-semibold text-white"
+                    : "font-light text-neutral-400"
+                }`}
+              >
                 {day?.getDate()}
               </span>
               {day?.getDate() && (
-                <DayState day={getStatusDay(day.toISOString().slice(0, 10))} />
+                <div>
+                  <DayState
+                    day={getStatusDay(day.toISOString().slice(0, 10))}
+                  />
+                </div>
               )}
             </div>
           ))}
