@@ -21,12 +21,14 @@ export const useHabits = () => {
   const session = useSession();
 
   function handleCriation(data: habitsSchemaProps) {
-    habit.mutate({ user_id: session.data?.user.id, habit: data.habit });
-    router.push("/");
-    setTimeout(() => {
-      router.refresh();
-      clearTimeout(+data);
-    }, 2);
+    if (session.data) {
+      habit.mutate({ user_id: session.data?.user.id, habit: data.habit });
+      router.push("/");
+      setTimeout(() => {
+        router.refresh();
+        clearTimeout(+data);
+      }, 2);
+    }
   }
 
   return {

@@ -117,12 +117,14 @@ export default function Calendar({ habits }: Props) {
       router.refresh();
     }
 
-    stateCreate.mutate({
-      habits_id: habits.id,
-      date: clickDate,
-      status: true,
-    });
-    router.refresh();
+    if (habits) {
+      stateCreate.mutate({
+        habits_id: habits.id,
+        date: clickDate,
+        status: true,
+      });
+      router.refresh();
+    }
   }
 
   return (
