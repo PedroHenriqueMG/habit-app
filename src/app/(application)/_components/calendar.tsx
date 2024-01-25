@@ -19,7 +19,6 @@ type Props = {
 
 export default function Calendar({ habits }: Props) {
   const router = useRouter();
-  const [status, setStatus] = useState<boolean>(true);
   const stateCreate = api.habits.update.useMutation();
   const stateUpdate = api.habits.updateStatus.useMutation();
 
@@ -105,25 +104,23 @@ export default function Calendar({ habits }: Props) {
 
   //change status
   function handleClick(day: Date) {
-    setStatus(!status);
-
     const clickDate = day.toISOString().slice(0, 10);
 
     const isDateSaved = habits?.state?.some(
       (state) => state.date === clickDate,
     );
 
-    console.log(status);
+    const statusSave = habits?.state?.find((state) => state.date === clickDate);
 
     if (isDateSaved) {
-      stateUpdate.mutate({ date: clickDate, status: status });
+      stateUpdate.mutate({ date: clickDate, status: !statusSave?.status });
       router.refresh();
     }
 
     stateCreate.mutate({
       habits_id: habits.id,
       date: clickDate,
-      status: status,
+      status: true,
     });
     router.refresh();
   }

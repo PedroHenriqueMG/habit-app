@@ -1,6 +1,5 @@
 import { api } from "~/trpc/server";
 import Calendar from "../../_components/calendar";
-import StateModal from "../../_components/modals/stateModal";
 
 export default async function Habit({
   params: { id },
@@ -15,7 +14,6 @@ export default async function Habit({
         {habit?.habit}
       </h1>
       <Calendar habits={habit} />
-      <StateModal path={id} />
     </section>
   );
 }
