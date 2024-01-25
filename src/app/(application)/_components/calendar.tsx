@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import ArrowIcon from "./arrowIcon";
 import { useEffect, useState } from "react";
 import DayState from "./dayState";
+import { api } from "~/trpc/react";
 
 type Props = {
   habits: {
@@ -17,6 +18,11 @@ type Props = {
 };
 
 export default function Calendar({ habits }: Props) {
+  const router = useRouter();
+  const [status, setStatus] = useState<boolean>(true);
+  const stateCreate = api.habits.update.useMutation();
+  const stateUpdate = api.habits.updateStatus.useMutation();
+
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
@@ -25,7 +31,6 @@ export default function Calendar({ habits }: Props) {
   const [month, setMonth] = useState(currentMonth);
   const [year, setYear] = useState(currentYear);
   const [selectDate, setSelectDate] = useState(new Date());
-  const router = useRouter();
 
   // get all days in month and year
   function getDaysInMonth(month: number, year: number): Date[] {
@@ -98,6 +103,31 @@ export default function Calendar({ habits }: Props) {
     );
   }
 
+  //change status
+  function handleClick(day: Date) {
+    setStatus(!status);
+
+    const clickDate = day.toISOString().slice(0, 10);
+
+    const isDateSaved = habits?.state?.some(
+      (state) => state.date === clickDate,
+    );
+
+    console.log(status);
+
+    if (isDateSaved) {
+      stateUpdate.mutate({ date: clickDate, status: status });
+      router.refresh();
+    }
+
+    stateCreate.mutate({
+      habits_id: habits.id,
+      date: clickDate,
+      status: status,
+    });
+    router.refresh();
+  }
+
   return (
     <section>
       <MyButton onClick={() => router.push("/")} color="link">
@@ -143,7 +173,10 @@ export default function Calendar({ habits }: Props) {
                 {day?.getDate()}
               </span>
               {day?.getDate() && (
-                <div>
+                <div
+                  onClick={() => handleClick(day)}
+                  className="cursor-pointer"
+                >
                   <DayState
                     day={getStatusDay(day.toISOString().slice(0, 10))}
                   />
@@ -153,12 +186,6 @@ export default function Calendar({ habits }: Props) {
           ))}
         </div>
       </div>
-      <MyButton
-        color="green"
-        onClick={() => router.push(`/habit/${habits?.id}?state=true`)}
-      >
-        Atualizar
-      </MyButton>
     </section>
   );
 }

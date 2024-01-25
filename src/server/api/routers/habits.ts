@@ -3,6 +3,7 @@ import {
   habitSchemaUpdate,
   habitsSchemaCreate,
   habitsSchemaDelete,
+  stateSchemaUpdate,
 } from "~/types/habitsSchema";
 
 export const habitsRouter = createTRPCRouter({
@@ -52,6 +53,16 @@ export const habitsRouter = createTRPCRouter({
         message: "Account created successfully",
         result: result.date,
       };
+    }),
+  updateStatus: publicProcedure
+    .input(stateSchemaUpdate)
+    .mutation(({ ctx, input }) => {
+      return ctx.db.state.update({
+        where: { date: input.date },
+        data: {
+          status: input.status,
+        },
+      });
     }),
   delete: publicProcedure.input(habitsSchemaDelete).mutation(({ ctx, input }) =>
     ctx.db.habits.delete({

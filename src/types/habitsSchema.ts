@@ -15,9 +15,9 @@ export const habitSchemaUpdate = z.object({
   habits_id: z.number(),
 });
 
-export const stateFormSchema = z.object({
+export const stateSchemaUpdate = z.object({
   date: z.string(),
-  status: z.enum(["true", "false"]),
+  status: z.boolean(),
 });
 
 export const habitsSchemaDelete = z.object({
@@ -25,4 +25,3 @@ export const habitsSchemaDelete = z.object({
 });
 
 export type habitsSchemaProps = z.infer<typeof habitsSchema>;
-export type stateFormSchemaProps = z.infer<typeof stateFormSchema>;
