@@ -10,7 +10,7 @@ export default async function Home() {
   return (
     <section className="flex flex-col items-center gap-8 px-4 pt-16">
       {session ? (
-        <TableHabit habits={habits} />
+        <TableHabit session={session} habits={habits} />
       ) : (
         <div>
           <h2 className="font-sans text-xl text-white">

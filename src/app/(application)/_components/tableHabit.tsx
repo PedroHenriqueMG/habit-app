@@ -4,21 +4,28 @@ import Image from "next/image";
 import DayState from "./dayState";
 import { MyButton } from "./ui/Button";
 import { type State } from "@prisma/client";
+import { type Session } from "next-auth";
 import { api } from "~/trpc/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 type Props = {
+  session: Session | null;
   habits: {
     id: number;
     habit: string;
+    user_id: string;
     state: State[];
   }[];
 };
 
-export default function TableHabit({ habits }: Props) {
+export default function TableHabit({ habits, session }: Props) {
   const habitDelete = api.habits.delete.useMutation();
   const router = useRouter();
+
+  const userHabits = habits.filter(
+    (habit) => habit.user_id === session?.user.id,
+  );
 
   //get today week day
   const today = new Date();
@@ -58,8 +65,8 @@ export default function TableHabit({ habits }: Props) {
 
   return (
     <div className="flex flex-col items-center gap-8">
-      {habits.length > 0 ? (
-        habits.map((habitSteak) => (
+      {userHabits.length > 0 ? (
+        userHabits.map((habitSteak) => (
           <div key={habitSteak.id}>
             <div className="flex items-center justify-between">
               <span className="font-sans text-xl text-white">
