@@ -16,7 +16,7 @@ export const habitSchemaUpdate = z.object({
 });
 
 export const stateSchemaUpdate = z.object({
-  date: z.string(),
+  id: z.number(),
   status: z.boolean(),
 });
 

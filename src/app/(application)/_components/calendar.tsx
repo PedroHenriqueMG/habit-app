@@ -113,18 +113,18 @@ export default function Calendar({ habits }: Props) {
     const statusSave = habits?.state?.find((state) => state.date === clickDate);
 
     if (isDateSaved) {
-      stateUpdate.mutate({ date: clickDate, status: !statusSave?.status });
+      statusSave &&
+        stateUpdate.mutate({ id: statusSave?.id, status: !statusSave?.status });
       router.refresh();
     }
 
-    if (habits) {
+    habits &&
       stateCreate.mutate({
         habits_id: habits.id,
         date: clickDate,
         status: true,
       });
-      router.refresh();
-    }
+    router.refresh();
   }
 
   return (
